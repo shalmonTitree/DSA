@@ -1,0 +1,149 @@
+#include<iostream>
+using namespace std;
+
+class node{
+public:
+
+    int data;
+    node* next;
+
+    node(int data)
+    {
+        this->data = data;
+        next = NULL;
+    }
+};
+
+//finding number of nodes in linked list
+int lenghtll(node*head)
+{
+    int count = 0;
+    while(head != NULL)
+    {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
+
+
+//insertion at begining
+void insertAtHead(node* &head,int data){
+    if(head == NULL)
+    {
+        head = new node(data);
+        return;
+    }
+
+    node *n = new node(data);
+    n->next = head;
+    head = n;
+}
+
+//insert at given postion
+void insertMiddle(node* &head,int data,int pos)
+{
+    if(pos == 0)
+    {
+        insertAtHead(head,data);
+    }
+    else
+    {
+        node* temp = head;
+        for(int jump = 1; jump <= pos - 1; jump++)
+        {
+            temp = temp->next;
+        }
+        node* n = new node(data);
+        n->next = temp->next;
+        temp->next = n;
+
+    }
+}
+
+//insert at end
+void insertAtTail(node* &head, int data)
+{
+    if(head == NULL)
+    {
+        head = new node(data);
+        return;
+    }
+    node* tail = head;
+    while(tail->next != NULL)
+    {
+        tail = tail->next;
+    }
+    tail->next = new node(data);
+    return;
+}
+
+//print all nodes
+void print(node* head)
+{
+    while (head!=NULL)
+    {
+        cout<<head->data<<" ->";
+        head = head->next;
+    }    
+}
+
+//delete node
+void deletell(node* &head)
+{
+    if(head == NULL)
+    {
+        return;
+    }
+    node* temp = head->next;
+    delete head;
+    head = temp; 
+}
+
+
+//find if node with data 'x' is present or not
+bool search(node* head, int key)
+{
+    node* temp = head;
+    while(temp!= NULL)
+    {
+        if(temp->data == key)
+        {
+            return true;
+        }
+        temp = temp->next;
+    }
+    return false;
+}
+
+int main()
+{
+    node* head = NULL;
+    insertAtHead(head,10);
+    insertAtHead(head,20);
+    insertAtHead(head,30);
+    insertAtHead(head,40);
+    insertAtHead(head,50);
+    print(head);
+    cout<<endl;
+
+    insertMiddle(head,25,3);
+    print(head);
+    cout<<endl;
+
+    insertAtTail(head,100);
+    print(head);
+
+    cout<<endl;
+    deletell(head);
+    print(head);
+
+    cout<<endl;
+
+    if(search(head,2)){
+        cout<<"Element is found"<<endl;
+    }else{
+        cout<<"Not present"<<endl;
+    }
+
+}
