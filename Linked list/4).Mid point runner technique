@@ -1,0 +1,81 @@
+#include<iostream>
+using namespace std;
+
+class node{
+public:
+
+    int data;
+    node* next;
+
+    node(int data)
+    {
+        this->data = data;
+        next = NULL;
+    }
+};
+
+int lenghtll(node*head)
+{
+    int count = 0;
+    while(head != NULL)
+    {
+        count++;
+        head = head->next;
+    }
+    return count;
+}
+
+void insertAtHead(node* &head,int data){
+    if(head == NULL)
+    {
+        head = new node(data);
+        return;
+    }
+
+    node *n = new node(data);
+    n->next = head;
+    head = n;
+}
+
+void print(node* head)
+{
+    while (head!=NULL)
+    {
+        cout<<head->data<<" ->";
+        head = head->next;
+    }    
+}
+
+node* midpoint(node *head)
+{
+    if(head == NULL or head->next == NULL)
+    {
+        return head;
+    }
+
+    node* slow = head;
+    node* fast = head->next;
+
+    while(fast != NULL and fast->next != NULL)
+    {
+        fast = fast->next->next;
+        slow = slow->next;
+    }
+    return slow;
+}
+int main()
+{
+    node* head = NULL;
+    insertAtHead(head,10);
+    insertAtHead(head,20);
+    insertAtHead(head,30);
+    insertAtHead(head,40);
+    insertAtHead(head,50);
+    cout<<"Data in linkedlist is:"<<endl;
+    print(head);
+    cout<<endl;
+    cout<<"Midpoint is"<<endl;
+    node* mid = midpoint(head);
+    cout<<mid->data;
+
+}
