@@ -1,0 +1,76 @@
+#include<iostream>
+using namespace std;
+
+class node{
+public:
+
+    int data;
+    node* next;
+
+    node(int data)
+    {
+        this->data = data;
+        next = NULL;
+    }
+};
+
+//insertion at begining
+void insertAtHead(node* &head,int data){
+    if(head == NULL)
+    {
+        head = new node(data);
+        return;
+    }
+
+    node *n = new node(data);
+    n->next = head;
+    head = n;
+}
+
+//print all nodes
+void print(node* head)
+{
+    while (head!=NULL)
+    {
+        cout<<head->data<<" ->";
+        head = head->next;
+    }    
+}
+
+node* reversee(node* head)
+{
+    if(head->next == NULL or head == NULL)
+    {
+        return head;
+    }
+
+    node *shead = reversee(head->next);
+    
+    node* temp = shead;
+    while(temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    head->next = NULL;
+    temp->next = head;
+
+    return shead;
+}
+
+
+int main()
+{
+    node* head = NULL;
+    insertAtHead(head,10);
+    insertAtHead(head,20);
+    insertAtHead(head,30);
+    insertAtHead(head,40);
+    insertAtHead(head,50);
+    print(head);
+    cout<<endl;
+    
+    cout<<endl;
+    head = reversee(head);
+    cout<<"After reverseing";
+    print(head);
+}
